@@ -9,15 +9,15 @@ class MyApp extends StatefulWidget {
   
 
   @override
-  State<MyApp> createState() => MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
 
-  void answerQuestion() {
+  void _answerQuestion() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
     
   }
@@ -36,20 +36,20 @@ class MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Text(
-              questions[questionIndex],
+              questions[_questionIndex],
             ),
             // ignore: deprecated_member_use
             RaisedButton(
-                child: const Text('Answer 1'), onPressed: answerQuestion),
+                child: const Text('Answer 1'), onPressed: _answerQuestion),
             // ignore: deprecated_member_use
             RaisedButton(
-                child: const Text('Answer 2'), onPressed: answerQuestion),
+                child: const Text('Answer 2'), onPressed: _answerQuestion),
             // ignore: deprecated_member_use
             RaisedButton(
-                child: const Text('Answer 3'), onPressed: answerQuestion),
+                child: const Text('Answer 3'), onPressed: _answerQuestion),
             // ignore: deprecated_member_use
             RaisedButton(
-                child: const Text('Answer 4'), onPressed: answerQuestion),
+                child: const Text('Answer 4'), onPressed: _answerQuestion),
           ],
         ),
       ),
