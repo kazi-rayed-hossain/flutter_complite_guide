@@ -1,6 +1,6 @@
 # flutter_complite_guide
 
-A new Flutter project.
+Flutter Crash Course for Beginners 2021 - Build a Flutter App with Google's Flutter & Dart
 
 ## Getting Started
 
