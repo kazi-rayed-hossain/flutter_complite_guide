@@ -1,58 +1,84 @@
 import 'package:flutter/material.dart';
 
-import './question.dart';
-// void main() {
-//   runApp(MyApp());
-// }
-void main() => runApp( MyApp());
+import './quiz.dart';
+import './result.dart';
+
+void main(List<String> args) {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
-  
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
 }
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  final _questions = const [
+    {
+      'questionText': 'Whats your favorite color ?',
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1}
+      ]
+    },
+    {
+      'questionText': 'Whats your favorite animal ?',
+      'answers': [
+        {'text': 'Dog', 'score': 10},
+        {'text': 'Frog', 'score': 5},
+        {'text': 'Elphant', 'score': 3},
+        {'text': 'Dinosaur', 'score': 1}
+      ]
+    },
+    {
+      'questionText': 'What  is your favorite Country  ?',
+      'answers': [
+        {'text': 'UK', 'score': 10},
+        {'text': 'Germany', 'score': 5},
+        {'text': 'Brasil', 'score': 3},
+        {'text': 'Poland', 'score': 1}
+      ]
+    }
+  ];
+
+  void _resetQuiz(){
     setState(() {
-      _questionIndex = _questionIndex + 1;
+      _questionIndex = 0;
+      _totalScore = 0;
     });
     
+  }
+  void _answerQuestion(int score) {
+    setState(() {
+      _questionIndex += 1;
+    });
+
+    _totalScore += score;
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'what\'s your favorite color ?',
-      'what\'s your favorite animal ?'
-    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('My 1st App'),
+          title: const Text('Flutter Crash Course for Beginners 2019', style: TextStyle(fontSize: 15)),
         ),
-        body: Column(
-          children: [
-            Question(
-              questions[_questionIndex],
-            ),
-            // ignore: deprecated_member_use
-            RaisedButton(
-                child: const Text('Answer 1'), onPressed: _answerQuestion),
-            // ignore: deprecated_member_use
-            RaisedButton(
-                child: const Text('Answer 2'), onPressed: _answerQuestion),
-            // ignore: deprecated_member_use
-            RaisedButton(
-                child: const Text('Answer 3'), onPressed: _answerQuestion),
-            // ignore: deprecated_member_use
-            RaisedButton(
-                child: const Text('Answer 4'), onPressed: _answerQuestion),
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                questions: _questions,
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+              )
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
